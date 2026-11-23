@@ -8,6 +8,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qsl
 
 from src.hash_table import HashTable
+from src.linear_probing import LinearProbingHashTable
 from src.shortener import Shortener
 
 
@@ -76,6 +77,13 @@ class ShortenerRequestHandler(BaseHTTPRequestHandler):
                 f"<p>{message}</p>",
             )
             return
+        except OverflowError:
+            self._send_html(
+                503,
+                "<h1>Service Unavailable</h1>"
+                "<p>테이블이 가득 찼습니다</p>",
+            )
+            return
 
         short_url = self._short_url(code)
         escaped_url = html.escape(self.server.shortener.expand(code))
@@ -97,7 +105,15 @@ class ShortenerRequestHandler(BaseHTTPRequestHandler):
 
     def _render_table(self) -> str:
         table = self.server.shortener.table
-        sections = ["<h1>Hash table</h1>"]
+        sections = [
+            "<h1>Hash table</h1>",
+            f"<p>Table type: {self.server.table_type}</p>",
+            f"<p>Load factor: {table.load_factor():.4f}</p>",
+        ]
+        if isinstance(table, LinearProbingHashTable):
+            sections.extend(self._render_linear_table(table))
+            return "".join(sections)
+
         for bucket_index, first_node in table.iter_buckets():
             sections.append(f"<section><h2>Bucket {bucket_index}</h2><div>")
             node = first_node
@@ -121,9 +137,57 @@ class ShortenerRequestHandler(BaseHTTPRequestHandler):
             sections.append("</div></section>")
         return "".join(sections)
 
+    def _render_linear_table(self, table: LinearProbingHashTable) -> list[str]:
+        sections = []
+        for slot_index, slot in enumerate(table.slots):
+            sections.append(f"<section><h2>Slot {slot_index}</h2><div>")
+            if slot is None:
+                sections.append("빈칸")
+            else:
+                key, value = slot
+                escaped_key = html.escape(key)
+                escaped_code = html.escape(str(value))
+                short_url = html.escape(self._short_url(str(value)), quote=True)
+                sections.append(
+                    '<article class="slot">'
+                    f"<p>URL: <code>{escaped_key}</code></p>"
+                    f"<p>Code: <code>{escaped_code}</code></p>"
+                    f'<p>Short URL: <a href="{short_url}">'
+                    f"{short_url}</a></p>"
+                    f"{self._render_hash_trace(key)}"
+                    f"{self._render_probe_trace(key)}"
+                    "</article>"
+                )
+            sections.append("</div></section>")
+        return sections
+
+    def _render_probe_trace(self, key: str) -> str:
+        table = self.server.shortener.table
+        if not isinstance(table, LinearProbingHashTable):
+            raise TypeError("probe traces require a linear probing table")
+
+        start = table.bucket_index(key)
+        _, probes = table.find(key)
+        probe_indices = [
+            (start + offset) % table.capacity for offset in range(probes)
+        ]
+        steps = []
+        for index in probe_indices:
+            slot = table.slots[index]
+            state = (
+                "match" if slot is not None and slot[0] == key else "different key"
+            )
+            steps.append(f"<li>Slot {index}: {state}</li>")
+        order = " → ".join(str(index) for index in probe_indices)
+        return (
+            "<details><summary>Probe sequence</summary>"
+            f"<p>Probe order: {order}</p><ol>{''.join(steps)}</ol></details>"
+        )
+
     def _render_hash_trace(self, key: str) -> str:
         table = self.server.shortener.table
         trace = table.hash_trace(key)
+        starting_slot = table.bucket_index(key)
         steps = ["<li>initial h = 0</li>"]
         for character, previous, value in trace:
             escaped_character = html.escape(character)
@@ -133,7 +197,8 @@ class ShortenerRequestHandler(BaseHTTPRequestHandler):
             )
         return (
             "<details><summary>Hash calculation</summary><ol>"
-            f'{"".join(steps)}</ol></details>'
+            f'{"".join(steps)}</ol>'
+            f"<p>Starting slot: {starting_slot}</p></details>"
         )
 
     def _send_html(self, status: int, content: str) -> None:
@@ -149,16 +214,30 @@ class ShortenerRequestHandler(BaseHTTPRequestHandler):
 
 
 class ShortenerHTTPServer(HTTPServer):
-    def __init__(self, server_address: tuple[str, int]) -> None:
-        self.shortener = Shortener(HashTable(capacity=13))
+    def __init__(
+        self, server_address: tuple[str, int], table_type: str = "chaining"
+    ) -> None:
+        if table_type == "chaining":
+            table = HashTable(capacity=13)
+        elif table_type == "linear":
+            table = LinearProbingHashTable(capacity=13)
+        else:
+            raise ValueError(f"unknown table type: {table_type}")
+        self.table_type = table_type
+        self.shortener = Shortener(table)
         super().__init__(server_address, ShortenerRequestHandler)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the URL shortener.")
     parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument(
+        "--table", choices=("chaining", "linear"), default="chaining"
+    )
     arguments = parser.parse_args()
-    with ShortenerHTTPServer(("0.0.0.0", arguments.port)) as server:
+    with ShortenerHTTPServer(
+        ("0.0.0.0", arguments.port), table_type=arguments.table
+    ) as server:
         print(f"Serving on http://0.0.0.0:{arguments.port}")
         server.serve_forever()
 
