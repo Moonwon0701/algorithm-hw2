@@ -110,5 +110,70 @@ class ServerTests(unittest.TestCase):
         self.assertNotIn("<script>", body)
 
 
+class LinearProbingServerTests(unittest.TestCase):
+    def setUp(self):
+        self.server = ShortenerHTTPServer(("127.0.0.1", 0), table_type="linear")
+        self.thread = threading.Thread(target=self.server.serve_forever)
+        self.thread.start()
+        self.connection = http.client.HTTPConnection(
+            "127.0.0.1", self.server.server_port, timeout=2
+        )
+
+    def tearDown(self):
+        self.connection.close()
+        self.server.shutdown()
+        self.server.server_close()
+        self.thread.join(timeout=2)
+
+    def request(self, method, path, body=None, headers=None):
+        self.connection.request(method, path, body=body, headers=headers or {})
+        response = self.connection.getresponse()
+        response_body = response.read().decode("utf-8")
+        return response.status, response.headers, response_body
+
+    def post_url(self, url):
+        return self.request(
+            "POST",
+            "/shorten",
+            body=urlencode([("url", url)]),
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
+
+    def test_full_table_returns_service_unavailable(self):
+        for index in range(13):
+            self.server.shortener.shorten(f"https://site{index}.example/")
+
+        status, _, body = self.post_url("https://overflow.example/")
+
+        self.assertEqual(status, 503)
+        self.assertIn("테이블이 가득 찼습니다", body)
+
+    def test_table_displays_linear_probe_order_and_slot_states(self):
+        table = self.server.shortener.table
+        urls = []
+        candidate = 0
+        while len(urls) < 3:
+            url = f"https://site{candidate}.example/"
+            if table.bucket_index(url) == 11:
+                urls.append(url)
+            candidate += 1
+        for url in urls:
+            self.server.shortener.shorten(url)
+
+        status, _, body = self.request("GET", "/table")
+
+        self.assertEqual(status, 200)
+        self.assertIn("Table type: linear", body)
+        self.assertIn("Load factor: 0.2308", body)
+        for slot_index in range(13):
+            self.assertIn(f"<h2>Slot {slot_index}</h2>", body)
+        self.assertIn("빈칸", body)
+        self.assertIn("<details>", body)
+        self.assertIn("Starting slot: 11", body)
+        self.assertIn("Probe order: 11 → 12 → 0", body)
+        self.assertIn("different key", body)
+        self.assertIn("match", body)
+
+
 if __name__ == "__main__":
     unittest.main()

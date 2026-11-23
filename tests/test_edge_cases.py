@@ -1,6 +1,7 @@
 import unittest
 
 from src.hash_table import HashTable
+from src.linear_probing import LinearProbingHashTable
 from src.shortener import Shortener
 
 
@@ -32,11 +33,12 @@ class TestHashTableEdgeCases(unittest.TestCase):
         self.assertEqual(compared, 5)
 
 
-class TestShortenerEdgeCases(unittest.TestCase):
+class ShortenerEdgeCasesTestMixin:
     PREFIX = "https://a.com/"
+    table_type = None
 
     def setUp(self):
-        self.shortener = Shortener(HashTable(13))
+        self.shortener = Shortener(self.table_type(13))
 
     def make_url(self, length):
         return self.PREFIX + "x" * (length - len(self.PREFIX))
@@ -61,6 +63,9 @@ class TestShortenerEdgeCases(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     self.shortener.shorten(url)
 
+class TestShortenerEdgeCases(ShortenerEdgeCasesTestMixin, unittest.TestCase):
+    table_type = HashTable
+
     def test_works_when_urls_exceed_table_capacity(self):
         # 버킷 13개에 URL 30개(적재율 > 2)를 넣어도 모두 제대로 찾아야 함
         urls = [f"https://site{i}.example/" for i in range(30)]
@@ -68,6 +73,20 @@ class TestShortenerEdgeCases(unittest.TestCase):
         self.assertEqual(len(set(codes)), 30)
         for url, code in zip(urls, codes):
             self.assertEqual(self.shortener.expand(code), url)
+
+
+class TestLinearProbingShortenerEdgeCases(
+    ShortenerEdgeCasesTestMixin, unittest.TestCase
+):
+    table_type = LinearProbingHashTable
+
+    def test_full_table_rejects_new_url_but_reuses_existing(self):
+        # 13칸이 다 차면 새 URL은 저장할 수 없지만, 이미 있는 URL은 기존 코드를 돌려준다
+        urls = [f"https://site{i}.example/" for i in range(13)]
+        codes = [self.shortener.shorten(u) for u in urls]
+        with self.assertRaises(OverflowError):
+            self.shortener.shorten("https://new.example/")
+        self.assertEqual(self.shortener.shorten(urls[0]), codes[0])
 
 
 if __name__ == "__main__":
