@@ -6,28 +6,28 @@ text{font-family:Arial,sans-serif;fill:#222}
 .axis-label,.legend{font-size:12px}
 .grid{stroke:#ddd;stroke-width:1}
 .axis{stroke:#555;stroke-width:1.5}
-.chain-measured{fill:none;stroke:#1769aa;stroke-width:2.5}
+.chain-average{fill:none;stroke:#1769aa;stroke-width:2.5}
 .chain-theory{fill:none;stroke:#1769aa;stroke-width:2.5;stroke-dasharray:7 5}
-.linear-measured{fill:none;stroke:#d04a35;stroke-width:2.5}
+.linear-average{fill:none;stroke:#d04a35;stroke-width:2.5}
 .linear-theory{fill:none;stroke:#d04a35;stroke-width:2.5;stroke-dasharray:7 5}
-.chain-measured-point{fill:#1769aa}
-.chain-theory-point{fill:#1769aa}
-.linear-measured-point{fill:#d04a35}
-.linear-theory-point{fill:#d04a35}
+.chain-range{stroke:#1769aa;stroke-width:1.5}
+.linear-range{stroke:#d04a35;stroke-width:1.5}
+.chain-point{fill:#1769aa}
+.linear-point{fill:#d04a35}
 </style>
 <text x="95" y="35" class="title">Successful searches</text>
 <line x1="95" y1="284.0" x2="860" y2="284.0" class="grid"/>
 <text x="83" y="288.0" text-anchor="end" class="tick">1</text>
 <line x1="95" y1="240.0" x2="860" y2="240.0" class="grid"/>
-<text x="83" y="244.0" text-anchor="end" class="tick">2</text>
+<text x="83" y="244.0" text-anchor="end" class="tick">2.6</text>
 <line x1="95" y1="196.0" x2="860" y2="196.0" class="grid"/>
-<text x="83" y="200.0" text-anchor="end" class="tick">3</text>
+<text x="83" y="200.0" text-anchor="end" class="tick">4.2</text>
 <line x1="95" y1="152.0" x2="860" y2="152.0" class="grid"/>
-<text x="83" y="156.0" text-anchor="end" class="tick">4</text>
+<text x="83" y="156.0" text-anchor="end" class="tick">5.8</text>
 <line x1="95" y1="108.0" x2="860" y2="108.0" class="grid"/>
-<text x="83" y="112.0" text-anchor="end" class="tick">5</text>
+<text x="83" y="112.0" text-anchor="end" class="tick">7.4</text>
 <line x1="95" y1="64.0" x2="860" y2="64.0" class="grid"/>
-<text x="83" y="68.0" text-anchor="end" class="tick">6</text>
+<text x="83" y="68.0" text-anchor="end" class="tick">9</text>
 <line x1="95.0" y1="64" x2="95.0" y2="284" class="grid"/>
 <text x="95.0" y="304" text-anchor="middle" class="tick">0.1</text>
 <line x1="190.6" y1="64" x2="190.6" y2="284" class="grid"/>
@@ -47,69 +47,109 @@ text{font-family:Arial,sans-serif;fill:#222}
 <line x1="860.0" y1="64" x2="860.0" y2="284" class="grid"/>
 <text x="860.0" y="304" text-anchor="middle" class="tick">0.9</text>
 <line x1="95" y1="284" x2="860" y2="284" class="axis"/>
-<polyline points="95.0,281.5 190.6,279.5 286.2,277.9 381.9,275.9 477.5,273.5 573.1,271.6 668.7,268.9 764.4,266.5 860.0,264.6" class="chain-measured"/>
-<circle cx="95.0" cy="281.5" r="3.5" class="chain-measured-point"/>
-<circle cx="190.6" cy="279.5" r="3.5" class="chain-measured-point"/>
-<circle cx="286.2" cy="277.9" r="3.5" class="chain-measured-point"/>
-<circle cx="381.9" cy="275.9" r="3.5" class="chain-measured-point"/>
-<circle cx="477.5" cy="273.5" r="3.5" class="chain-measured-point"/>
-<circle cx="573.1" cy="271.6" r="3.5" class="chain-measured-point"/>
-<circle cx="668.7" cy="268.9" r="3.5" class="chain-measured-point"/>
-<circle cx="764.4" cy="266.5" r="3.5" class="chain-measured-point"/>
-<circle cx="860.0" cy="264.6" r="3.5" class="chain-measured-point"/>
-<polyline points="95.0,281.8 190.6,279.6 286.2,277.4 381.9,275.2 477.5,273.0 573.1,270.8 668.7,268.6 764.4,266.4 860.0,264.2" class="chain-theory"/>
-<circle cx="95.0" cy="281.8" r="3.5" class="chain-theory-point"/>
-<circle cx="190.6" cy="279.6" r="3.5" class="chain-theory-point"/>
-<circle cx="286.2" cy="277.4" r="3.5" class="chain-theory-point"/>
-<circle cx="381.9" cy="275.2" r="3.5" class="chain-theory-point"/>
-<circle cx="477.5" cy="273.0" r="3.5" class="chain-theory-point"/>
-<circle cx="573.1" cy="270.8" r="3.5" class="chain-theory-point"/>
-<circle cx="668.7" cy="268.6" r="3.5" class="chain-theory-point"/>
-<circle cx="764.4" cy="266.4" r="3.5" class="chain-theory-point"/>
-<circle cx="860.0" cy="264.2" r="3.5" class="chain-theory-point"/>
-<polyline points="95.0,281.3 190.6,278.3 286.2,275.1 381.9,269.9 477.5,262.4 573.1,253.7 668.7,232.8 764.4,203.0 860.0,112.4" class="linear-measured"/>
-<circle cx="95.0" cy="281.3" r="3.5" class="linear-measured-point"/>
-<circle cx="190.6" cy="278.3" r="3.5" class="linear-measured-point"/>
-<circle cx="286.2" cy="275.1" r="3.5" class="linear-measured-point"/>
-<circle cx="381.9" cy="269.9" r="3.5" class="linear-measured-point"/>
-<circle cx="477.5" cy="262.4" r="3.5" class="linear-measured-point"/>
-<circle cx="573.1" cy="253.7" r="3.5" class="linear-measured-point"/>
-<circle cx="668.7" cy="232.8" r="3.5" class="linear-measured-point"/>
-<circle cx="764.4" cy="203.0" r="3.5" class="linear-measured-point"/>
-<circle cx="860.0" cy="112.4" r="3.5" class="linear-measured-point"/>
-<polyline points="95.0,281.6 190.6,278.5 286.2,274.6 381.9,269.3 477.5,262.0 573.1,251.0 668.7,232.7 764.4,196.0 860.0,86.0" class="linear-theory"/>
-<circle cx="95.0" cy="281.6" r="3.5" class="linear-theory-point"/>
-<circle cx="190.6" cy="278.5" r="3.5" class="linear-theory-point"/>
-<circle cx="286.2" cy="274.6" r="3.5" class="linear-theory-point"/>
-<circle cx="381.9" cy="269.3" r="3.5" class="linear-theory-point"/>
-<circle cx="477.5" cy="262.0" r="3.5" class="linear-theory-point"/>
-<circle cx="573.1" cy="251.0" r="3.5" class="linear-theory-point"/>
-<circle cx="668.7" cy="232.7" r="3.5" class="linear-theory-point"/>
-<circle cx="764.4" cy="196.0" r="3.5" class="linear-theory-point"/>
-<circle cx="860.0" cy="86.0" r="3.5" class="linear-theory-point"/>
+<polyline points="95.0,282.6 190.6,281.3 286.2,280.0 381.9,278.5 477.5,277.2 573.1,275.8 668.7,274.4 764.4,273.0 860.0,271.6" class="chain-average"/>
+<line x1="95.0" y1="282.3" x2="95.0" y2="283.3" class="chain-range"/>
+<line x1="91.0" y1="282.3" x2="99.0" y2="282.3" class="chain-range"/>
+<line x1="91.0" y1="283.3" x2="99.0" y2="283.3" class="chain-range"/>
+<circle cx="95.0" cy="282.6" r="3.5" class="chain-point"/>
+<line x1="190.6" y1="280.6" x2="190.6" y2="282.1" class="chain-range"/>
+<line x1="186.6" y1="280.6" x2="194.6" y2="280.6" class="chain-range"/>
+<line x1="186.6" y1="282.1" x2="194.6" y2="282.1" class="chain-range"/>
+<circle cx="190.6" cy="281.3" r="3.5" class="chain-point"/>
+<line x1="286.2" y1="279.3" x2="286.2" y2="280.6" class="chain-range"/>
+<line x1="282.2" y1="279.3" x2="290.2" y2="279.3" class="chain-range"/>
+<line x1="282.2" y1="280.6" x2="290.2" y2="280.6" class="chain-range"/>
+<circle cx="286.2" cy="280.0" r="3.5" class="chain-point"/>
+<line x1="381.9" y1="277.9" x2="381.9" y2="279.1" class="chain-range"/>
+<line x1="377.9" y1="277.9" x2="385.9" y2="277.9" class="chain-range"/>
+<line x1="377.9" y1="279.1" x2="385.9" y2="279.1" class="chain-range"/>
+<circle cx="381.9" cy="278.5" r="3.5" class="chain-point"/>
+<line x1="477.5" y1="276.5" x2="477.5" y2="277.9" class="chain-range"/>
+<line x1="473.5" y1="276.5" x2="481.5" y2="276.5" class="chain-range"/>
+<line x1="473.5" y1="277.9" x2="481.5" y2="277.9" class="chain-range"/>
+<circle cx="477.5" cy="277.2" r="3.5" class="chain-point"/>
+<line x1="573.1" y1="275.4" x2="573.1" y2="276.4" class="chain-range"/>
+<line x1="569.1" y1="275.4" x2="577.1" y2="275.4" class="chain-range"/>
+<line x1="569.1" y1="276.4" x2="577.1" y2="276.4" class="chain-range"/>
+<circle cx="573.1" cy="275.8" r="3.5" class="chain-point"/>
+<line x1="668.7" y1="273.9" x2="668.7" y2="274.9" class="chain-range"/>
+<line x1="664.7" y1="273.9" x2="672.7" y2="273.9" class="chain-range"/>
+<line x1="664.7" y1="274.9" x2="672.7" y2="274.9" class="chain-range"/>
+<circle cx="668.7" cy="274.4" r="3.5" class="chain-point"/>
+<line x1="764.4" y1="272.4" x2="764.4" y2="273.6" class="chain-range"/>
+<line x1="760.4" y1="272.4" x2="768.4" y2="272.4" class="chain-range"/>
+<line x1="760.4" y1="273.6" x2="768.4" y2="273.6" class="chain-range"/>
+<circle cx="764.4" cy="273.0" r="3.5" class="chain-point"/>
+<line x1="860.0" y1="271.2" x2="860.0" y2="272.1" class="chain-range"/>
+<line x1="856.0" y1="271.2" x2="864.0" y2="271.2" class="chain-range"/>
+<line x1="856.0" y1="272.1" x2="864.0" y2="272.1" class="chain-range"/>
+<circle cx="860.0" cy="271.6" r="3.5" class="chain-point"/>
+<polyline points="95.0,282.6 190.6,281.2 286.2,279.9 381.9,278.5 477.5,277.1 573.1,275.8 668.7,274.4 764.4,273.0 860.0,271.6" class="chain-theory"/>
+<polyline points="95.0,282.5 190.6,280.6 286.2,278.3 381.9,274.8 477.5,270.3 573.1,263.6 668.7,251.7 764.4,228.9 860.0,159.8" class="linear-average"/>
+<line x1="95.0" y1="282.1" x2="95.0" y2="283.2" class="linear-range"/>
+<line x1="91.0" y1="282.1" x2="99.0" y2="282.1" class="linear-range"/>
+<line x1="91.0" y1="283.2" x2="99.0" y2="283.2" class="linear-range"/>
+<circle cx="95.0" cy="282.5" r="3.5" class="linear-point"/>
+<line x1="190.6" y1="279.8" x2="190.6" y2="281.6" class="linear-range"/>
+<line x1="186.6" y1="279.8" x2="194.6" y2="279.8" class="linear-range"/>
+<line x1="186.6" y1="281.6" x2="194.6" y2="281.6" class="linear-range"/>
+<circle cx="190.6" cy="280.6" r="3.5" class="linear-point"/>
+<line x1="286.2" y1="277.1" x2="286.2" y2="279.3" class="linear-range"/>
+<line x1="282.2" y1="277.1" x2="290.2" y2="277.1" class="linear-range"/>
+<line x1="282.2" y1="279.3" x2="290.2" y2="279.3" class="linear-range"/>
+<circle cx="286.2" cy="278.3" r="3.5" class="linear-point"/>
+<line x1="381.9" y1="273.8" x2="381.9" y2="275.9" class="linear-range"/>
+<line x1="377.9" y1="273.8" x2="385.9" y2="273.8" class="linear-range"/>
+<line x1="377.9" y1="275.9" x2="385.9" y2="275.9" class="linear-range"/>
+<circle cx="381.9" cy="274.8" r="3.5" class="linear-point"/>
+<line x1="477.5" y1="268.2" x2="477.5" y2="272.1" class="linear-range"/>
+<line x1="473.5" y1="268.2" x2="481.5" y2="268.2" class="linear-range"/>
+<line x1="473.5" y1="272.1" x2="481.5" y2="272.1" class="linear-range"/>
+<circle cx="477.5" cy="270.3" r="3.5" class="linear-point"/>
+<line x1="573.1" y1="260.7" x2="573.1" y2="266.0" class="linear-range"/>
+<line x1="569.1" y1="260.7" x2="577.1" y2="260.7" class="linear-range"/>
+<line x1="569.1" y1="266.0" x2="577.1" y2="266.0" class="linear-range"/>
+<circle cx="573.1" cy="263.6" r="3.5" class="linear-point"/>
+<line x1="668.7" y1="248.5" x2="668.7" y2="255.2" class="linear-range"/>
+<line x1="664.7" y1="248.5" x2="672.7" y2="248.5" class="linear-range"/>
+<line x1="664.7" y1="255.2" x2="672.7" y2="255.2" class="linear-range"/>
+<circle cx="668.7" cy="251.7" r="3.5" class="linear-point"/>
+<line x1="764.4" y1="213.7" x2="764.4" y2="234.5" class="linear-range"/>
+<line x1="760.4" y1="213.7" x2="768.4" y2="213.7" class="linear-range"/>
+<line x1="760.4" y1="234.5" x2="768.4" y2="234.5" class="linear-range"/>
+<circle cx="764.4" cy="228.9" r="3.5" class="linear-point"/>
+<line x1="860.0" y1="102.5" x2="860.0" y2="182.3" class="linear-range"/>
+<line x1="856.0" y1="102.5" x2="864.0" y2="102.5" class="linear-range"/>
+<line x1="856.0" y1="182.3" x2="864.0" y2="182.3" class="linear-range"/>
+<circle cx="860.0" cy="159.8" r="3.5" class="linear-point"/>
+<polyline points="95.0,282.5 190.6,280.6 286.2,278.1 381.9,274.8 477.5,270.2 573.1,263.4 668.7,251.9 764.4,229.0 860.0,160.2" class="linear-theory"/>
 <text x="22" y="174.0" transform="rotate(-90 22 174.0)" text-anchor="middle" class="axis-label">Probes / search</text>
 <text x="477.5" y="327" text-anchor="middle" class="axis-label">Load factor α</text>
-<line x1="525" y1="27" x2="547" y2="27" class="chain-measured"/>
-<text x="552" y="31" class="legend">Chaining measured</text>
-<line x1="655" y1="27" x2="677" y2="27" class="chain-theory"/>
-<text x="682" y="31" class="legend">Chaining theory</text>
-<line x1="525" y1="45" x2="547" y2="45" class="linear-measured"/>
-<text x="552" y="49" class="legend">Linear measured</text>
-<line x1="655" y1="45" x2="677" y2="45" class="linear-theory"/>
-<text x="682" y="49" class="legend">Linear theory</text>
+<line x1="500" y1="27" x2="522" y2="27" class="chain-average"/>
+<text x="527" y="31" class="legend">Chaining avg/range</text>
+<circle cx="511" cy="27" r="3" class="chain-point"/>
+<line x1="511" y1="23" x2="511" y2="31" class="chain-range"/>
+<line x1="700" y1="27" x2="722" y2="27" class="chain-theory"/>
+<text x="727" y="31" class="legend">Chaining theory</text>
+<line x1="500" y1="45" x2="522" y2="45" class="linear-average"/>
+<text x="527" y="49" class="legend">Linear avg/range</text>
+<circle cx="511" cy="45" r="3" class="linear-point"/>
+<line x1="511" y1="41" x2="511" y2="49" class="linear-range"/>
+<line x1="700" y1="45" x2="722" y2="45" class="linear-theory"/>
+<text x="727" y="49" class="legend">Linear theory</text>
 <text x="95" y="405" class="title">Unsuccessful searches</text>
 <line x1="95" y1="654.0" x2="860" y2="654.0" class="grid"/>
 <text x="83" y="658.0" text-anchor="end" class="tick">0</text>
-<line x1="95" y1="614.0" x2="860" y2="614.0" class="grid"/>
-<text x="83" y="618.0" text-anchor="end" class="tick">10</text>
-<line x1="95" y1="574.0" x2="860" y2="574.0" class="grid"/>
-<text x="83" y="578.0" text-anchor="end" class="tick">20</text>
-<line x1="95" y1="534.0" x2="860" y2="534.0" class="grid"/>
-<text x="83" y="538.0" text-anchor="end" class="tick">30</text>
-<line x1="95" y1="494.0" x2="860" y2="494.0" class="grid"/>
-<text x="83" y="498.0" text-anchor="end" class="tick">40</text>
-<line x1="95" y1="454.0" x2="860" y2="454.0" class="grid"/>
-<text x="83" y="458.0" text-anchor="end" class="tick">50</text>
+<line x1="95" y1="610.0" x2="860" y2="610.0" class="grid"/>
+<text x="83" y="614.0" text-anchor="end" class="tick">18</text>
+<line x1="95" y1="566.0" x2="860" y2="566.0" class="grid"/>
+<text x="83" y="570.0" text-anchor="end" class="tick">36</text>
+<line x1="95" y1="522.0" x2="860" y2="522.0" class="grid"/>
+<text x="83" y="526.0" text-anchor="end" class="tick">54</text>
+<line x1="95" y1="478.0" x2="860" y2="478.0" class="grid"/>
+<text x="83" y="482.0" text-anchor="end" class="tick">72</text>
+<line x1="95" y1="434.0" x2="860" y2="434.0" class="grid"/>
+<text x="83" y="438.0" text-anchor="end" class="tick">90</text>
 <line x1="95.0" y1="434" x2="95.0" y2="654" class="grid"/>
 <text x="95.0" y="674" text-anchor="middle" class="tick">0.1</text>
 <line x1="190.6" y1="434" x2="190.6" y2="654" class="grid"/>
@@ -129,54 +169,94 @@ text{font-family:Arial,sans-serif;fill:#222}
 <line x1="860.0" y1="434" x2="860.0" y2="654" class="grid"/>
 <text x="860.0" y="674" text-anchor="middle" class="tick">0.9</text>
 <line x1="95" y1="654" x2="860" y2="654" class="axis"/>
-<polyline points="95.0,653.6 190.6,653.2 286.2,652.8 381.9,652.4 477.5,652.0 573.1,651.7 668.7,651.2 764.4,650.9 860.0,650.5" class="chain-measured"/>
-<circle cx="95.0" cy="653.6" r="3.5" class="chain-measured-point"/>
-<circle cx="190.6" cy="653.2" r="3.5" class="chain-measured-point"/>
-<circle cx="286.2" cy="652.8" r="3.5" class="chain-measured-point"/>
-<circle cx="381.9" cy="652.4" r="3.5" class="chain-measured-point"/>
-<circle cx="477.5" cy="652.0" r="3.5" class="chain-measured-point"/>
-<circle cx="573.1" cy="651.7" r="3.5" class="chain-measured-point"/>
-<circle cx="668.7" cy="651.2" r="3.5" class="chain-measured-point"/>
-<circle cx="764.4" cy="650.9" r="3.5" class="chain-measured-point"/>
-<circle cx="860.0" cy="650.5" r="3.5" class="chain-measured-point"/>
-<polyline points="95.0,653.6 190.6,653.2 286.2,652.8 381.9,652.4 477.5,652.0 573.1,651.6 668.7,651.2 764.4,650.8 860.0,650.4" class="chain-theory"/>
-<circle cx="95.0" cy="653.6" r="3.5" class="chain-theory-point"/>
-<circle cx="190.6" cy="653.2" r="3.5" class="chain-theory-point"/>
-<circle cx="286.2" cy="652.8" r="3.5" class="chain-theory-point"/>
-<circle cx="381.9" cy="652.4" r="3.5" class="chain-theory-point"/>
-<circle cx="477.5" cy="652.0" r="3.5" class="chain-theory-point"/>
-<circle cx="573.1" cy="651.6" r="3.5" class="chain-theory-point"/>
-<circle cx="668.7" cy="651.2" r="3.5" class="chain-theory-point"/>
-<circle cx="764.4" cy="650.8" r="3.5" class="chain-theory-point"/>
-<circle cx="860.0" cy="650.4" r="3.5" class="chain-theory-point"/>
-<polyline points="95.0,649.5 190.6,648.8 286.2,648.0 381.9,646.5 477.5,644.1 573.1,640.3 668.7,629.3 764.4,604.6 860.0,494.1" class="linear-measured"/>
-<circle cx="95.0" cy="649.5" r="3.5" class="linear-measured-point"/>
-<circle cx="190.6" cy="648.8" r="3.5" class="linear-measured-point"/>
-<circle cx="286.2" cy="648.0" r="3.5" class="linear-measured-point"/>
-<circle cx="381.9" cy="646.5" r="3.5" class="linear-measured-point"/>
-<circle cx="477.5" cy="644.1" r="3.5" class="linear-measured-point"/>
-<circle cx="573.1" cy="640.3" r="3.5" class="linear-measured-point"/>
-<circle cx="668.7" cy="629.3" r="3.5" class="linear-measured-point"/>
-<circle cx="764.4" cy="604.6" r="3.5" class="linear-measured-point"/>
-<circle cx="860.0" cy="494.1" r="3.5" class="linear-measured-point"/>
-<polyline points="95.0,649.5 190.6,648.9 286.2,647.9 381.9,646.4 477.5,644.0 573.1,639.5 668.7,629.8 764.4,602.0 860.0,452.0" class="linear-theory"/>
-<circle cx="95.0" cy="649.5" r="3.5" class="linear-theory-point"/>
-<circle cx="190.6" cy="648.9" r="3.5" class="linear-theory-point"/>
-<circle cx="286.2" cy="647.9" r="3.5" class="linear-theory-point"/>
-<circle cx="381.9" cy="646.4" r="3.5" class="linear-theory-point"/>
-<circle cx="477.5" cy="644.0" r="3.5" class="linear-theory-point"/>
-<circle cx="573.1" cy="639.5" r="3.5" class="linear-theory-point"/>
-<circle cx="668.7" cy="629.8" r="3.5" class="linear-theory-point"/>
-<circle cx="764.4" cy="602.0" r="3.5" class="linear-theory-point"/>
-<circle cx="860.0" cy="452.0" r="3.5" class="linear-theory-point"/>
+<polyline points="95.0,653.8 190.6,653.5 286.2,653.3 381.9,653.0 477.5,652.8 573.1,652.5 668.7,652.3 764.4,652.1 860.0,651.8" class="chain-average"/>
+<line x1="95.0" y1="653.7" x2="95.0" y2="653.8" class="chain-range"/>
+<line x1="91.0" y1="653.7" x2="99.0" y2="653.7" class="chain-range"/>
+<line x1="91.0" y1="653.8" x2="99.0" y2="653.8" class="chain-range"/>
+<circle cx="95.0" cy="653.8" r="3.5" class="chain-point"/>
+<line x1="190.6" y1="653.5" x2="190.6" y2="653.6" class="chain-range"/>
+<line x1="186.6" y1="653.5" x2="194.6" y2="653.5" class="chain-range"/>
+<line x1="186.6" y1="653.6" x2="194.6" y2="653.6" class="chain-range"/>
+<circle cx="190.6" cy="653.5" r="3.5" class="chain-point"/>
+<line x1="286.2" y1="653.2" x2="286.2" y2="653.3" class="chain-range"/>
+<line x1="282.2" y1="653.2" x2="290.2" y2="653.2" class="chain-range"/>
+<line x1="282.2" y1="653.3" x2="290.2" y2="653.3" class="chain-range"/>
+<circle cx="286.2" cy="653.3" r="3.5" class="chain-point"/>
+<line x1="381.9" y1="653.0" x2="381.9" y2="653.1" class="chain-range"/>
+<line x1="377.9" y1="653.0" x2="385.9" y2="653.0" class="chain-range"/>
+<line x1="377.9" y1="653.1" x2="385.9" y2="653.1" class="chain-range"/>
+<circle cx="381.9" cy="653.0" r="3.5" class="chain-point"/>
+<line x1="477.5" y1="652.7" x2="477.5" y2="652.9" class="chain-range"/>
+<line x1="473.5" y1="652.7" x2="481.5" y2="652.7" class="chain-range"/>
+<line x1="473.5" y1="652.9" x2="481.5" y2="652.9" class="chain-range"/>
+<circle cx="477.5" cy="652.8" r="3.5" class="chain-point"/>
+<line x1="573.1" y1="652.4" x2="573.1" y2="652.6" class="chain-range"/>
+<line x1="569.1" y1="652.4" x2="577.1" y2="652.4" class="chain-range"/>
+<line x1="569.1" y1="652.6" x2="577.1" y2="652.6" class="chain-range"/>
+<circle cx="573.1" cy="652.5" r="3.5" class="chain-point"/>
+<line x1="668.7" y1="652.2" x2="668.7" y2="652.4" class="chain-range"/>
+<line x1="664.7" y1="652.2" x2="672.7" y2="652.2" class="chain-range"/>
+<line x1="664.7" y1="652.4" x2="672.7" y2="652.4" class="chain-range"/>
+<circle cx="668.7" cy="652.3" r="3.5" class="chain-point"/>
+<line x1="764.4" y1="652.0" x2="764.4" y2="652.1" class="chain-range"/>
+<line x1="760.4" y1="652.0" x2="768.4" y2="652.0" class="chain-range"/>
+<line x1="760.4" y1="652.1" x2="768.4" y2="652.1" class="chain-range"/>
+<circle cx="764.4" cy="652.1" r="3.5" class="chain-point"/>
+<line x1="860.0" y1="651.7" x2="860.0" y2="651.9" class="chain-range"/>
+<line x1="856.0" y1="651.7" x2="864.0" y2="651.7" class="chain-range"/>
+<line x1="856.0" y1="651.9" x2="864.0" y2="651.9" class="chain-range"/>
+<circle cx="860.0" cy="651.8" r="3.5" class="chain-point"/>
+<polyline points="95.0,653.8 190.6,653.5 286.2,653.3 381.9,653.0 477.5,652.8 573.1,652.5 668.7,652.3 764.4,652.0 860.0,651.8" class="chain-theory"/>
+<polyline points="95.0,651.3 190.6,650.9 286.2,650.3 381.9,649.4 477.5,647.9 573.1,645.3 668.7,639.3 764.4,622.8 860.0,532.1" class="linear-average"/>
+<line x1="95.0" y1="651.2" x2="95.0" y2="651.3" class="linear-range"/>
+<line x1="91.0" y1="651.2" x2="99.0" y2="651.2" class="linear-range"/>
+<line x1="91.0" y1="651.3" x2="99.0" y2="651.3" class="linear-range"/>
+<circle cx="95.0" cy="651.3" r="3.5" class="linear-point"/>
+<line x1="190.6" y1="650.8" x2="190.6" y2="650.9" class="linear-range"/>
+<line x1="186.6" y1="650.8" x2="194.6" y2="650.8" class="linear-range"/>
+<line x1="186.6" y1="650.9" x2="194.6" y2="650.9" class="linear-range"/>
+<circle cx="190.6" cy="650.9" r="3.5" class="linear-point"/>
+<line x1="286.2" y1="650.2" x2="286.2" y2="650.4" class="linear-range"/>
+<line x1="282.2" y1="650.2" x2="290.2" y2="650.2" class="linear-range"/>
+<line x1="282.2" y1="650.4" x2="290.2" y2="650.4" class="linear-range"/>
+<circle cx="286.2" cy="650.3" r="3.5" class="linear-point"/>
+<line x1="381.9" y1="649.2" x2="381.9" y2="649.6" class="linear-range"/>
+<line x1="377.9" y1="649.2" x2="385.9" y2="649.2" class="linear-range"/>
+<line x1="377.9" y1="649.6" x2="385.9" y2="649.6" class="linear-range"/>
+<circle cx="381.9" cy="649.4" r="3.5" class="linear-point"/>
+<line x1="477.5" y1="647.5" x2="477.5" y2="648.4" class="linear-range"/>
+<line x1="473.5" y1="647.5" x2="481.5" y2="647.5" class="linear-range"/>
+<line x1="473.5" y1="648.4" x2="481.5" y2="648.4" class="linear-range"/>
+<circle cx="477.5" cy="647.9" r="3.5" class="linear-point"/>
+<line x1="573.1" y1="644.5" x2="573.1" y2="646.1" class="linear-range"/>
+<line x1="569.1" y1="644.5" x2="577.1" y2="644.5" class="linear-range"/>
+<line x1="569.1" y1="646.1" x2="577.1" y2="646.1" class="linear-range"/>
+<circle cx="573.1" cy="645.3" r="3.5" class="linear-point"/>
+<line x1="668.7" y1="637.1" x2="668.7" y2="641.0" class="linear-range"/>
+<line x1="664.7" y1="637.1" x2="672.7" y2="637.1" class="linear-range"/>
+<line x1="664.7" y1="641.0" x2="672.7" y2="641.0" class="linear-range"/>
+<circle cx="668.7" cy="639.3" r="3.5" class="linear-point"/>
+<line x1="764.4" y1="609.9" x2="764.4" y2="628.5" class="linear-range"/>
+<line x1="760.4" y1="609.9" x2="768.4" y2="609.9" class="linear-range"/>
+<line x1="760.4" y1="628.5" x2="768.4" y2="628.5" class="linear-range"/>
+<circle cx="764.4" cy="622.8" r="3.5" class="linear-point"/>
+<line x1="860.0" y1="455.8" x2="860.0" y2="572.4" class="linear-range"/>
+<line x1="856.0" y1="455.8" x2="864.0" y2="455.8" class="linear-range"/>
+<line x1="856.0" y1="572.4" x2="864.0" y2="572.4" class="linear-range"/>
+<circle cx="860.0" cy="532.1" r="3.5" class="linear-point"/>
+<polyline points="95.0,651.3 190.6,650.9 286.2,650.3 381.9,649.4 477.5,647.9 573.1,645.1 668.7,639.2 764.4,622.2 860.0,530.6" class="linear-theory"/>
 <text x="22" y="544.0" transform="rotate(-90 22 544.0)" text-anchor="middle" class="axis-label">Probes / search</text>
 <text x="477.5" y="697" text-anchor="middle" class="axis-label">Load factor α</text>
-<line x1="525" y1="397" x2="547" y2="397" class="chain-measured"/>
-<text x="552" y="401" class="legend">Chaining measured</text>
-<line x1="655" y1="397" x2="677" y2="397" class="chain-theory"/>
-<text x="682" y="401" class="legend">Chaining theory</text>
-<line x1="525" y1="415" x2="547" y2="415" class="linear-measured"/>
-<text x="552" y="419" class="legend">Linear measured</text>
-<line x1="655" y1="415" x2="677" y2="415" class="linear-theory"/>
-<text x="682" y="419" class="legend">Linear theory</text>
+<line x1="500" y1="397" x2="522" y2="397" class="chain-average"/>
+<text x="527" y="401" class="legend">Chaining avg/range</text>
+<circle cx="511" cy="397" r="3" class="chain-point"/>
+<line x1="511" y1="393" x2="511" y2="401" class="chain-range"/>
+<line x1="700" y1="397" x2="722" y2="397" class="chain-theory"/>
+<text x="727" y="401" class="legend">Chaining theory</text>
+<line x1="500" y1="415" x2="522" y2="415" class="linear-average"/>
+<text x="527" y="419" class="legend">Linear avg/range</text>
+<circle cx="511" cy="415" r="3" class="linear-point"/>
+<line x1="511" y1="411" x2="511" y2="419" class="linear-range"/>
+<line x1="700" y1="415" x2="722" y2="415" class="linear-theory"/>
+<text x="727" y="419" class="legend">Linear theory</text>
 </svg>

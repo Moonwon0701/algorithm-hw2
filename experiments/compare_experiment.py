@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import math
 import random
 from pathlib import Path
 
@@ -13,23 +14,28 @@ from src.linear_probing import LinearProbingHashTable
 CAPACITY = 4093
 LOAD_FACTORS = tuple(step / 10 for step in range(1, 10))
 FAILED_QUERY_COUNT = 2000
-RANDOM_SEED = 42
+REPEAT_COUNT = 20
 OUTPUT_DIRECTORY = Path(__file__).resolve().parent
 CSV_PATH = OUTPUT_DIRECTORY / "compare_results.csv"
 SVG_PATH = OUTPUT_DIRECTORY / "compare.svg"
 
-RESULT_FIELDS = (
-    "alpha",
-    "entries",
-    "chaining_success_measured",
-    "chaining_success_theoretical",
-    "chaining_failed_measured",
-    "chaining_failed_theoretical",
-    "linear_success_measured",
-    "linear_success_theoretical",
-    "linear_failed_measured",
-    "linear_failed_theoretical",
+METRICS = (
+    "chaining_success",
+    "chaining_failed",
+    "linear_success",
+    "linear_failed",
 )
+RESULT_FIELDS = tuple(
+    field
+    for metric in METRICS
+    for field in (
+        f"{metric}_average",
+        f"{metric}_min",
+        f"{metric}_max",
+        f"{metric}_theoretical",
+    )
+)
+RESULT_FIELDS = ("alpha", "entries", *RESULT_FIELDS)
 
 def _random_urls(rng: random.Random, count: int, namespace: str) -> list[str]:
     return [
@@ -40,55 +46,63 @@ def _random_urls(rng: random.Random, count: int, namespace: str) -> list[str]:
 
 
 def _measure() -> list[dict[str, float | int]]:
-    rng = random.Random(RANDOM_SEED)
     largest_entry_count = round(max(LOAD_FACTORS) * CAPACITY)
-    inserted_urls = _random_urls(rng, largest_entry_count, "insert")
-    missing_urls = _random_urls(rng, FAILED_QUERY_COUNT, "missing")
-
     results: list[dict[str, float | int]] = []
     for alpha in LOAD_FACTORS:
         entry_count = round(alpha * CAPACITY)
-        urls = inserted_urls[:entry_count]
-        chaining_table = HashTable(capacity=CAPACITY)
-        linear_table = LinearProbingHashTable(capacity=CAPACITY)
+        measurements = {metric: [] for metric in METRICS}
 
-        for index, url in enumerate(urls):
-            chaining_table.put(url, index)
-            linear_table.put(url, index)
+        for seed in range(REPEAT_COUNT):
+            rng = random.Random(seed)
+            inserted_urls = _random_urls(rng, largest_entry_count, "insert")
+            missing_urls = _random_urls(rng, FAILED_QUERY_COUNT, "missing")
+            urls = inserted_urls[:entry_count]
+            chaining_table = HashTable(capacity=CAPACITY)
+            linear_table = LinearProbingHashTable(capacity=CAPACITY)
 
-        chaining_success = sum(
-            chaining_table.find(url)[1] for url in urls
-        ) / entry_count
-        linear_success = sum(linear_table.find(url)[1] for url in urls) / entry_count
-        chaining_failed = sum(
-            chaining_table.find(url)[1] for url in missing_urls
-        ) / FAILED_QUERY_COUNT
-        linear_failed = sum(
-            linear_table.find(url)[1] for url in missing_urls
-        ) / FAILED_QUERY_COUNT
+            for index, url in enumerate(urls):
+                chaining_table.put(url, index)
+                linear_table.put(url, index)
 
-        results.append(
-            {
-                "alpha": alpha,
-                "entries": entry_count,
-                "chaining_success_measured": chaining_success,
-                "chaining_success_theoretical": 1 + alpha / 2,
-                "chaining_failed_measured": chaining_failed,
-                "chaining_failed_theoretical": alpha,
-                "linear_success_measured": linear_success,
-                "linear_success_theoretical": 0.5
-                * (1 + 1 / (1 - alpha)),
-                "linear_failed_measured": linear_failed,
-                "linear_failed_theoretical": 0.5
-                * (1 + 1 / (1 - alpha) ** 2),
-            }
-        )
+            measurements["chaining_success"].append(
+                sum(chaining_table.find(url)[1] for url in urls) / entry_count
+            )
+            measurements["linear_success"].append(
+                sum(linear_table.find(url)[1] for url in urls) / entry_count
+            )
+            measurements["chaining_failed"].append(
+                sum(chaining_table.find(url)[1] for url in missing_urls)
+                / FAILED_QUERY_COUNT
+            )
+            measurements["linear_failed"].append(
+                sum(linear_table.find(url)[1] for url in missing_urls)
+                / FAILED_QUERY_COUNT
+            )
+
+        theoretical_values = {
+            "chaining_success": 1 + alpha / 2,
+            "chaining_failed": alpha,
+            "linear_success": 0.5 * (1 + 1 / (1 - alpha)),
+            "linear_failed": 0.5 * (1 + 1 / (1 - alpha) ** 2),
+        }
+        result: dict[str, float | int] = {
+            "alpha": alpha,
+            "entries": entry_count,
+        }
+        for metric, values in measurements.items():
+            result[f"{metric}_average"] = sum(values) / len(values)
+            result[f"{metric}_min"] = min(values)
+            result[f"{metric}_max"] = max(values)
+            result[f"{metric}_theoretical"] = theoretical_values[metric]
+        results.append(result)
     return results
 
 
 def _write_csv(results: list[dict[str, float | int]]) -> None:
     with CSV_PATH.open("w", newline="", encoding="utf-8") as output_file:
-        writer = csv.DictWriter(output_file, fieldnames=RESULT_FIELDS)
+        writer = csv.DictWriter(
+            output_file, fieldnames=RESULT_FIELDS, lineterminator="\n"
+        )
         writer.writeheader()
         for result in results:
             writer.writerow(
@@ -96,11 +110,9 @@ def _write_csv(results: list[dict[str, float | int]]) -> None:
                     field: (
                         f"{result[field]:g}"
                         if field == "alpha"
-                        else (
-                            result[field]
-                            if field == "entries"
-                            else f"{result[field]:.6f}"
-                        )
+                        else result[field]
+                        if field == "entries"
+                        else f"{result[field]:.6f}"
                     )
                     for field in RESULT_FIELDS
                 }
@@ -111,15 +123,27 @@ def _chart(
     results: list[dict[str, float | int]],
     *,
     title: str,
-    measured_keys: tuple[str, str],
+    metric_keys: tuple[str, str],
     theory_keys: tuple[str, str],
     top: int,
     y_min: float,
-    y_max: float,
-    y_ticks: tuple[float, ...],
 ) -> list[str]:
     left, right = 95, 860
     plot_top, plot_bottom = top + 52, top + 272
+    bounds_keys = tuple(
+        f"{metric}_{bound}"
+        for metric in metric_keys
+        for bound in ("min", "max")
+    ) + theory_keys
+    y_max = max(
+        y_min + 1,
+        math.ceil(
+            max(float(row[key]) for row in results for key in bounds_keys) * 1.1
+        ),
+    )
+    y_ticks = tuple(
+        y_min + (y_max - y_min) * tick / 5 for tick in range(6)
+    )
 
     def x_position(alpha: float) -> float:
         return left + (alpha - 0.1) / 0.8 * (right - left)
@@ -137,10 +161,8 @@ def _chart(
         )
 
     series = (
-        (measured_keys[0], "chain-measured"),
-        (theory_keys[0], "chain-theory"),
-        (measured_keys[1], "linear-measured"),
-        (theory_keys[1], "linear-theory"),
+        (metric_keys[0], theory_keys[0], "chain"),
+        (metric_keys[1], theory_keys[1], "linear"),
     )
     lines = [
         f'<text x="{left}" y="{top + 23}" class="title">{title}</text>',
@@ -171,16 +193,38 @@ def _chart(
         f'<line x1="{left}" y1="{plot_bottom}" x2="{right}" '
         f'y2="{plot_bottom}" class="axis"/>'
     )
-    for key, css_class in series:
+    for metric, theory, css_class in series:
+        average_key = f"{metric}_average"
         lines.append(
-            f'<polyline points="{points(key)}" class="{css_class}"/>'
+            f'<polyline points="{points(average_key)}" '
+            f'class="{css_class}-average"/>'
         )
         for row in results:
+            x = x_position(float(row["alpha"]))
+            low_y = y_position(float(row[f"{metric}_min"]))
+            high_y = y_position(float(row[f"{metric}_max"]))
             lines.append(
-                f'<circle cx="{x_position(float(row["alpha"])):.1f}" '
-                f'cy="{y_position(float(row[key])):.1f}" r="3.5" '
-                f'class="{css_class}-point"/>'
+                f'<line x1="{x:.1f}" y1="{high_y:.1f}" '
+                f'x2="{x:.1f}" y2="{low_y:.1f}" '
+                f'class="{css_class}-range"/>'
             )
+            lines.extend(
+                (
+                    f'<line x1="{x - 4:.1f}" y1="{high_y:.1f}" '
+                    f'x2="{x + 4:.1f}" y2="{high_y:.1f}" '
+                    f'class="{css_class}-range"/>',
+                    f'<line x1="{x - 4:.1f}" y1="{low_y:.1f}" '
+                    f'x2="{x + 4:.1f}" y2="{low_y:.1f}" '
+                    f'class="{css_class}-range"/>',
+                    f'<circle cx="{x:.1f}" '
+                    f'cy="{y_position(float(row[average_key])):.1f}" '
+                    f'r="3.5" class="{css_class}-point"/>',
+                )
+            )
+        lines.append(
+            f'<polyline points="{points(theory)}" '
+            f'class="{css_class}-theory"/>'
+        )
     lines.extend(
         (
             f'<text x="22" y="{(plot_top + plot_bottom) / 2:.1f}" '
@@ -193,20 +237,30 @@ def _chart(
         )
     )
     legend = (
-        (525, "Chaining measured", "chain-measured"),
-        (655, "Chaining theory", "chain-theory"),
-        (525, "Linear measured", "linear-measured"),
-        (655, "Linear theory", "linear-theory"),
+        (500, "Chaining avg/range", "chain", "average"),
+        (700, "Chaining theory", "chain", "theory"),
+        (500, "Linear avg/range", "linear", "average"),
+        (700, "Linear theory", "linear", "theory"),
     )
-    for index, (x, label, css_class) in enumerate(legend):
+    for index, (x, label, css_class, line_type) in enumerate(legend):
         y = top + 19 + (index // 2) * 18
         lines.extend(
             (
                 f'<line x1="{x}" y1="{y - 4}" x2="{x + 22}" '
-                f'y2="{y - 4}" class="{css_class}"/>',
+                f'y2="{y - 4}" class="{css_class}-{line_type}"/>',
                 f'<text x="{x + 27}" y="{y}" class="legend">{label}</text>',
             )
         )
+        if line_type == "average":
+            lines.extend(
+                (
+                    f'<circle cx="{x + 11}" cy="{y - 4}" r="3" '
+                    f'class="{css_class}-point"/>',
+                    f'<line x1="{x + 11}" y1="{y - 8}" '
+                    f'x2="{x + 11}" y2="{y}" '
+                    f'class="{css_class}-range"/>',
+                )
+            )
     return lines
 
 
@@ -221,39 +275,35 @@ def _write_svg(results: list[dict[str, float | int]]) -> None:
         ".axis-label,.legend{font-size:12px}",
         ".grid{stroke:#ddd;stroke-width:1}",
         ".axis{stroke:#555;stroke-width:1.5}",
-        ".chain-measured{fill:none;stroke:#1769aa;stroke-width:2.5}",
+        ".chain-average{fill:none;stroke:#1769aa;stroke-width:2.5}",
         ".chain-theory{fill:none;stroke:#1769aa;stroke-width:2.5;"
         "stroke-dasharray:7 5}",
-        ".linear-measured{fill:none;stroke:#d04a35;stroke-width:2.5}",
+        ".linear-average{fill:none;stroke:#d04a35;stroke-width:2.5}",
         ".linear-theory{fill:none;stroke:#d04a35;stroke-width:2.5;"
         "stroke-dasharray:7 5}",
-        ".chain-measured-point{fill:#1769aa}",
-        ".chain-theory-point{fill:#1769aa}",
-        ".linear-measured-point{fill:#d04a35}",
-        ".linear-theory-point{fill:#d04a35}",
+        ".chain-range{stroke:#1769aa;stroke-width:1.5}",
+        ".linear-range{stroke:#d04a35;stroke-width:1.5}",
+        ".chain-point{fill:#1769aa}",
+        ".linear-point{fill:#d04a35}",
         "</style>",
         *_chart(
             results,
             title="Successful searches",
-            measured_keys=("chaining_success_measured", "linear_success_measured"),
+            metric_keys=("chaining_success", "linear_success"),
             theory_keys=(
                 "chaining_success_theoretical",
                 "linear_success_theoretical",
             ),
             top=12,
             y_min=1,
-            y_max=6,
-            y_ticks=(1, 2, 3, 4, 5, 6),
         ),
         *_chart(
             results,
             title="Unsuccessful searches",
-            measured_keys=("chaining_failed_measured", "linear_failed_measured"),
+            metric_keys=("chaining_failed", "linear_failed"),
             theory_keys=("chaining_failed_theoretical", "linear_failed_theoretical"),
             top=382,
             y_min=0,
-            y_max=55,
-            y_ticks=(0, 10, 20, 30, 40, 50),
         ),
         "</svg>",
     ]
@@ -262,21 +312,36 @@ def _write_svg(results: list[dict[str, float | int]]) -> None:
 
 def _print_table(results: list[dict[str, float | int]]) -> None:
     print(
-        f"{'α':>4} {'항목 수':>7} {'체이닝 성공':>12} {'성공 이론':>10} "
-        f"{'선형 성공':>10} {'성공 이론':>10} {'체이닝 실패':>12} "
-        f"{'실패 이론':>10} {'선형 실패':>10} {'실패 이론':>10}"
+        f"{'α':>4} {'항목 수':>7} {'체인 성공 avg[min,max]':>25} "
+        f"{'이론':>8} {'선형 성공 avg[min,max]':>25} {'이론':>8} "
+        f"{'체인 실패 avg[min,max]':>25} {'이론':>8} "
+        f"{'선형 실패 avg[min,max]':>25} {'이론':>8}"
+    )
+    metrics = (
+        "chaining_success",
+        "linear_success",
+        "chaining_failed",
+        "linear_failed",
     )
     for result in results:
+        formatted_metrics = [
+            (
+                f"{result[f'{metric}_average']:.4f}"
+                f"[{result[f'{metric}_min']:.4f},"
+                f"{result[f'{metric}_max']:.4f}]"
+            )
+            for metric in metrics
+        ]
         print(
             f"{result['alpha']:4.1f} {result['entries']:7d} "
-            f"{result['chaining_success_measured']:12.4f} "
-            f"{result['chaining_success_theoretical']:10.4f} "
-            f"{result['linear_success_measured']:10.4f} "
-            f"{result['linear_success_theoretical']:10.4f} "
-            f"{result['chaining_failed_measured']:12.4f} "
-            f"{result['chaining_failed_theoretical']:10.4f} "
-            f"{result['linear_failed_measured']:10.4f} "
-            f"{result['linear_failed_theoretical']:10.4f}"
+            f"{formatted_metrics[0]:>25} "
+            f"{result['chaining_success_theoretical']:8.4f} "
+            f"{formatted_metrics[1]:>25} "
+            f"{result['linear_success_theoretical']:8.4f} "
+            f"{formatted_metrics[2]:>25} "
+            f"{result['chaining_failed_theoretical']:8.4f} "
+            f"{formatted_metrics[3]:>25} "
+            f"{result['linear_failed_theoretical']:8.4f}"
         )
 
 
