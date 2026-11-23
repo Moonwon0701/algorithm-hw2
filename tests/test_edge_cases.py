@@ -80,6 +80,14 @@ class TestLinearProbingShortenerEdgeCases(
 ):
     table_type = LinearProbingHashTable
 
+    def test_full_table_rejects_new_url_but_reuses_existing(self):
+        # 13칸이 다 차면 새 URL은 저장할 수 없지만, 이미 있는 URL은 기존 코드를 돌려준다
+        urls = [f"https://site{i}.example/" for i in range(13)]
+        codes = [self.shortener.shorten(u) for u in urls]
+        with self.assertRaises(OverflowError):
+            self.shortener.shorten("https://new.example/")
+        self.assertEqual(self.shortener.shorten(urls[0]), codes[0])
+
 
 if __name__ == "__main__":
     unittest.main()
