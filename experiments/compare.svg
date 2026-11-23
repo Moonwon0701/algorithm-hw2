@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="760" viewBox="0 0 940 760">
+<style>
+text{font-family:Arial,sans-serif;fill:#222}
+.title{font-size:18px;font-weight:bold}
+.tick{font-size:12px;fill:#555}
+.axis-label,.legend{font-size:12px}
+.grid{stroke:#ddd;stroke-width:1}
+.axis{stroke:#555;stroke-width:1.5}
+.chain-measured{fill:none;stroke:#1769aa;stroke-width:2.5}
+.chain-theory{fill:none;stroke:#1769aa;stroke-width:2.5;stroke-dasharray:7 5}
+.linear-measured{fill:none;stroke:#d04a35;stroke-width:2.5}
+.linear-theory{fill:none;stroke:#d04a35;stroke-width:2.5;stroke-dasharray:7 5}
+.chain-measured-point{fill:#1769aa}
+.chain-theory-point{fill:#1769aa}
+.linear-measured-point{fill:#d04a35}
+.linear-theory-point{fill:#d04a35}
+</style>
+<text x="95" y="35" class="title">Successful searches</text>
+<line x1="95" y1="284.0" x2="860" y2="284.0" class="grid"/>
+<text x="83" y="288.0" text-anchor="end" class="tick">1</text>
+<line x1="95" y1="240.0" x2="860" y2="240.0" class="grid"/>
+<text x="83" y="244.0" text-anchor="end" class="tick">2</text>
+<line x1="95" y1="196.0" x2="860" y2="196.0" class="grid"/>
+<text x="83" y="200.0" text-anchor="end" class="tick">3</text>
+<line x1="95" y1="152.0" x2="860" y2="152.0" class="grid"/>
+<text x="83" y="156.0" text-anchor="end" class="tick">4</text>
+<line x1="95" y1="108.0" x2="860" y2="108.0" class="grid"/>
+<text x="83" y="112.0" text-anchor="end" class="tick">5</text>
+<line x1="95" y1="64.0" x2="860" y2="64.0" class="grid"/>
+<text x="83" y="68.0" text-anchor="end" class="tick">6</text>
+<line x1="95.0" y1="64" x2="95.0" y2="284" class="grid"/>
+<text x="95.0" y="304" text-anchor="middle" class="tick">0.1</text>
+<line x1="190.6" y1="64" x2="190.6" y2="284" class="grid"/>
+<text x="190.6" y="304" text-anchor="middle" class="tick">0.2</text>
+<line x1="286.2" y1="64" x2="286.2" y2="284" class="grid"/>
+<text x="286.2" y="304" text-anchor="middle" class="tick">0.3</text>
+<line x1="381.9" y1="64" x2="381.9" y2="284" class="grid"/>
+<text x="381.9" y="304" text-anchor="middle" class="tick">0.4</text>
+<line x1="477.5" y1="64" x2="477.5" y2="284" class="grid"/>
+<text x="477.5" y="304" text-anchor="middle" class="tick">0.5</text>
+<line x1="573.1" y1="64" x2="573.1" y2="284" class="grid"/>
+<text x="573.1" y="304" text-anchor="middle" class="tick">0.6</text>
+<line x1="668.7" y1="64" x2="668.7" y2="284" class="grid"/>
+<text x="668.7" y="304" text-anchor="middle" class="tick">0.7</text>
+<line x1="764.4" y1="64" x2="764.4" y2="284" class="grid"/>
+<text x="764.4" y="304" text-anchor="middle" class="tick">0.8</text>
+<line x1="860.0" y1="64" x2="860.0" y2="284" class="grid"/>
+<text x="860.0" y="304" text-anchor="middle" class="tick">0.9</text>
+<line x1="95" y1="284" x2="860" y2="284" class="axis"/>
+<polyline points="95.0,281.5 190.6,279.5 286.2,277.9 381.9,275.9 477.5,273.5 573.1,271.6 668.7,268.9 764.4,266.5 860.0,264.6" class="chain-measured"/>
+<circle cx="95.0" cy="281.5" r="3.5" class="chain-measured-point"/>
+<circle cx="190.6" cy="279.5" r="3.5" class="chain-measured-point"/>
+<circle cx="286.2" cy="277.9" r="3.5" class="chain-measured-point"/>
+<circle cx="381.9" cy="275.9" r="3.5" class="chain-measured-point"/>
+<circle cx="477.5" cy="273.5" r="3.5" class="chain-measured-point"/>
+<circle cx="573.1" cy="271.6" r="3.5" class="chain-measured-point"/>
+<circle cx="668.7" cy="268.9" r="3.5" class="chain-measured-point"/>
+<circle cx="764.4" cy="266.5" r="3.5" class="chain-measured-point"/>
+<circle cx="860.0" cy="264.6" r="3.5" class="chain-measured-point"/>
+<polyline points="95.0,281.8 190.6,279.6 286.2,277.4 381.9,275.2 477.5,273.0 573.1,270.8 668.7,268.6 764.4,266.4 860.0,264.2" class="chain-theory"/>
+<circle cx="95.0" cy="281.8" r="3.5" class="chain-theory-point"/>
+<circle cx="190.6" cy="279.6" r="3.5" class="chain-theory-point"/>
+<circle cx="286.2" cy="277.4" r="3.5" class="chain-theory-point"/>
+<circle cx="381.9" cy="275.2" r="3.5" class="chain-theory-point"/>
+<circle cx="477.5" cy="273.0" r="3.5" class="chain-theory-point"/>
+<circle cx="573.1" cy="270.8" r="3.5" class="chain-theory-point"/>
+<circle cx="668.7" cy="268.6" r="3.5" class="chain-theory-point"/>
+<circle cx="764.4" cy="266.4" r="3.5" class="chain-theory-point"/>
+<circle cx="860.0" cy="264.2" r="3.5" class="chain-theory-point"/>
+<polyline points="95.0,281.3 190.6,278.3 286.2,275.1 381.9,269.9 477.5,262.4 573.1,253.7 668.7,232.8 764.4,203.0 860.0,112.4" class="linear-measured"/>
+<circle cx="95.0" cy="281.3" r="3.5" class="linear-measured-point"/>
+<circle cx="190.6" cy="278.3" r="3.5" class="linear-measured-point"/>
+<circle cx="286.2" cy="275.1" r="3.5" class="linear-measured-point"/>
+<circle cx="381.9" cy="269.9" r="3.5" class="linear-measured-point"/>
+<circle cx="477.5" cy="262.4" r="3.5" class="linear-measured-point"/>
+<circle cx="573.1" cy="253.7" r="3.5" class="linear-measured-point"/>
+<circle cx="668.7" cy="232.8" r="3.5" class="linear-measured-point"/>
+<circle cx="764.4" cy="203.0" r="3.5" class="linear-measured-point"/>
+<circle cx="860.0" cy="112.4" r="3.5" class="linear-measured-point"/>
+<polyline points="95.0,281.6 190.6,278.5 286.2,274.6 381.9,269.3 477.5,262.0 573.1,251.0 668.7,232.7 764.4,196.0 860.0,86.0" class="linear-theory"/>
+<circle cx="95.0" cy="281.6" r="3.5" class="linear-theory-point"/>
+<circle cx="190.6" cy="278.5" r="3.5" class="linear-theory-point"/>
+<circle cx="286.2" cy="274.6" r="3.5" class="linear-theory-point"/>
+<circle cx="381.9" cy="269.3" r="3.5" class="linear-theory-point"/>
+<circle cx="477.5" cy="262.0" r="3.5" class="linear-theory-point"/>
+<circle cx="573.1" cy="251.0" r="3.5" class="linear-theory-point"/>
+<circle cx="668.7" cy="232.7" r="3.5" class="linear-theory-point"/>
+<circle cx="764.4" cy="196.0" r="3.5" class="linear-theory-point"/>
+<circle cx="860.0" cy="86.0" r="3.5" class="linear-theory-point"/>
+<text x="22" y="174.0" transform="rotate(-90 22 174.0)" text-anchor="middle" class="axis-label">Probes / search</text>
+<text x="477.5" y="327" text-anchor="middle" class="axis-label">Load factor α</text>
+<line x1="525" y1="27" x2="547" y2="27" class="chain-measured"/>
+<text x="552" y="31" class="legend">Chaining measured</text>
+<line x1="655" y1="27" x2="677" y2="27" class="chain-theory"/>
+<text x="682" y="31" class="legend">Chaining theory</text>
+<line x1="525" y1="45" x2="547" y2="45" class="linear-measured"/>
+<text x="552" y="49" class="legend">Linear measured</text>
+<line x1="655" y1="45" x2="677" y2="45" class="linear-theory"/>
+<text x="682" y="49" class="legend">Linear theory</text>
+<text x="95" y="405" class="title">Unsuccessful searches</text>
+<line x1="95" y1="654.0" x2="860" y2="654.0" class="grid"/>
+<text x="83" y="658.0" text-anchor="end" class="tick">0</text>
+<line x1="95" y1="614.0" x2="860" y2="614.0" class="grid"/>
+<text x="83" y="618.0" text-anchor="end" class="tick">10</text>
+<line x1="95" y1="574.0" x2="860" y2="574.0" class="grid"/>
+<text x="83" y="578.0" text-anchor="end" class="tick">20</text>
+<line x1="95" y1="534.0" x2="860" y2="534.0" class="grid"/>
+<text x="83" y="538.0" text-anchor="end" class="tick">30</text>
+<line x1="95" y1="494.0" x2="860" y2="494.0" class="grid"/>
+<text x="83" y="498.0" text-anchor="end" class="tick">40</text>
+<line x1="95" y1="454.0" x2="860" y2="454.0" class="grid"/>
+<text x="83" y="458.0" text-anchor="end" class="tick">50</text>
+<line x1="95.0" y1="434" x2="95.0" y2="654" class="grid"/>
+<text x="95.0" y="674" text-anchor="middle" class="tick">0.1</text>
+<line x1="190.6" y1="434" x2="190.6" y2="654" class="grid"/>
+<text x="190.6" y="674" text-anchor="middle" class="tick">0.2</text>
+<line x1="286.2" y1="434" x2="286.2" y2="654" class="grid"/>
+<text x="286.2" y="674" text-anchor="middle" class="tick">0.3</text>
+<line x1="381.9" y1="434" x2="381.9" y2="654" class="grid"/>
+<text x="381.9" y="674" text-anchor="middle" class="tick">0.4</text>
+<line x1="477.5" y1="434" x2="477.5" y2="654" class="grid"/>
+<text x="477.5" y="674" text-anchor="middle" class="tick">0.5</text>
+<line x1="573.1" y1="434" x2="573.1" y2="654" class="grid"/>
+<text x="573.1" y="674" text-anchor="middle" class="tick">0.6</text>
+<line x1="668.7" y1="434" x2="668.7" y2="654" class="grid"/>
+<text x="668.7" y="674" text-anchor="middle" class="tick">0.7</text>
+<line x1="764.4" y1="434" x2="764.4" y2="654" class="grid"/>
+<text x="764.4" y="674" text-anchor="middle" class="tick">0.8</text>
+<line x1="860.0" y1="434" x2="860.0" y2="654" class="grid"/>
+<text x="860.0" y="674" text-anchor="middle" class="tick">0.9</text>
+<line x1="95" y1="654" x2="860" y2="654" class="axis"/>
+<polyline points="95.0,653.6 190.6,653.2 286.2,652.8 381.9,652.4 477.5,652.0 573.1,651.7 668.7,651.2 764.4,650.9 860.0,650.5" class="chain-measured"/>
+<circle cx="95.0" cy="653.6" r="3.5" class="chain-measured-point"/>
+<circle cx="190.6" cy="653.2" r="3.5" class="chain-measured-point"/>
+<circle cx="286.2" cy="652.8" r="3.5" class="chain-measured-point"/>
+<circle cx="381.9" cy="652.4" r="3.5" class="chain-measured-point"/>
+<circle cx="477.5" cy="652.0" r="3.5" class="chain-measured-point"/>
+<circle cx="573.1" cy="651.7" r="3.5" class="chain-measured-point"/>
+<circle cx="668.7" cy="651.2" r="3.5" class="chain-measured-point"/>
+<circle cx="764.4" cy="650.9" r="3.5" class="chain-measured-point"/>
+<circle cx="860.0" cy="650.5" r="3.5" class="chain-measured-point"/>
+<polyline points="95.0,653.6 190.6,653.2 286.2,652.8 381.9,652.4 477.5,652.0 573.1,651.6 668.7,651.2 764.4,650.8 860.0,650.4" class="chain-theory"/>
+<circle cx="95.0" cy="653.6" r="3.5" class="chain-theory-point"/>
+<circle cx="190.6" cy="653.2" r="3.5" class="chain-theory-point"/>
+<circle cx="286.2" cy="652.8" r="3.5" class="chain-theory-point"/>
+<circle cx="381.9" cy="652.4" r="3.5" class="chain-theory-point"/>
+<circle cx="477.5" cy="652.0" r="3.5" class="chain-theory-point"/>
+<circle cx="573.1" cy="651.6" r="3.5" class="chain-theory-point"/>
+<circle cx="668.7" cy="651.2" r="3.5" class="chain-theory-point"/>
+<circle cx="764.4" cy="650.8" r="3.5" class="chain-theory-point"/>
+<circle cx="860.0" cy="650.4" r="3.5" class="chain-theory-point"/>
+<polyline points="95.0,649.5 190.6,648.8 286.2,648.0 381.9,646.5 477.5,644.1 573.1,640.3 668.7,629.3 764.4,604.6 860.0,494.1" class="linear-measured"/>
+<circle cx="95.0" cy="649.5" r="3.5" class="linear-measured-point"/>
+<circle cx="190.6" cy="648.8" r="3.5" class="linear-measured-point"/>
+<circle cx="286.2" cy="648.0" r="3.5" class="linear-measured-point"/>
+<circle cx="381.9" cy="646.5" r="3.5" class="linear-measured-point"/>
+<circle cx="477.5" cy="644.1" r="3.5" class="linear-measured-point"/>
+<circle cx="573.1" cy="640.3" r="3.5" class="linear-measured-point"/>
+<circle cx="668.7" cy="629.3" r="3.5" class="linear-measured-point"/>
+<circle cx="764.4" cy="604.6" r="3.5" class="linear-measured-point"/>
+<circle cx="860.0" cy="494.1" r="3.5" class="linear-measured-point"/>
+<polyline points="95.0,649.5 190.6,648.9 286.2,647.9 381.9,646.4 477.5,644.0 573.1,639.5 668.7,629.8 764.4,602.0 860.0,452.0" class="linear-theory"/>
+<circle cx="95.0" cy="649.5" r="3.5" class="linear-theory-point"/>
+<circle cx="190.6" cy="648.9" r="3.5" class="linear-theory-point"/>
+<circle cx="286.2" cy="647.9" r="3.5" class="linear-theory-point"/>
+<circle cx="381.9" cy="646.4" r="3.5" class="linear-theory-point"/>
+<circle cx="477.5" cy="644.0" r="3.5" class="linear-theory-point"/>
+<circle cx="573.1" cy="639.5" r="3.5" class="linear-theory-point"/>
+<circle cx="668.7" cy="629.8" r="3.5" class="linear-theory-point"/>
+<circle cx="764.4" cy="602.0" r="3.5" class="linear-theory-point"/>
+<circle cx="860.0" cy="452.0" r="3.5" class="linear-theory-point"/>
+<text x="22" y="544.0" transform="rotate(-90 22 544.0)" text-anchor="middle" class="axis-label">Probes / search</text>
+<text x="477.5" y="697" text-anchor="middle" class="axis-label">Load factor α</text>
+<line x1="525" y1="397" x2="547" y2="397" class="chain-measured"/>
+<text x="552" y="401" class="legend">Chaining measured</text>
+<line x1="655" y1="397" x2="677" y2="397" class="chain-theory"/>
+<text x="682" y="401" class="legend">Chaining theory</text>
+<line x1="525" y1="415" x2="547" y2="415" class="linear-measured"/>
+<text x="552" y="419" class="legend">Linear measured</text>
+<line x1="655" y1="415" x2="677" y2="415" class="linear-theory"/>
+<text x="682" y="419" class="legend">Linear theory</text>
+</svg>
