@@ -1,12 +1,15 @@
 import unittest
 
 from src.hash_table import HashTable
+from src.linear_probing import LinearProbingHashTable
 from src.shortener import Shortener
 
 
-class ShortenerTests(unittest.TestCase):
+class ShortenerTestMixin:
+    table_type = None
+
     def setUp(self):
-        self.shortener = Shortener(HashTable(capacity=13))
+        self.shortener = Shortener(self.table_type(capacity=13))
 
     def test_shortens_and_expands_urls_with_sequential_codes(self):
         first_url = "https://example.com"
@@ -49,6 +52,14 @@ class ShortenerTests(unittest.TestCase):
         for code in ("", "!", "z"):
             with self.subTest(code=code):
                 self.assertIsNone(self.shortener.expand(code))
+
+
+class ChainingShortenerTests(ShortenerTestMixin, unittest.TestCase):
+    table_type = HashTable
+
+
+class LinearProbingShortenerTests(ShortenerTestMixin, unittest.TestCase):
+    table_type = LinearProbingHashTable
 
 
 if __name__ == "__main__":
