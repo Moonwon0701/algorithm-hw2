@@ -78,7 +78,7 @@ class ShortenerRequestHandler(BaseHTTPRequestHandler):
             return
 
         short_url = self._short_url(code)
-        escaped_url = html.escape(url)
+        escaped_url = html.escape(self.server.shortener.expand(code))
         escaped_short_url = html.escape(short_url, quote=True)
         self._send_html(
             200,
